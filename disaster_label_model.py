@@ -12,18 +12,18 @@ from sklearn.metrics import roc_curve, auc
 
 
 
-gabor_mean = np.load("gabor_mean_all.npy")
-sobel_edge = np.load("sobel_edges0.4_all.npy")
-sobel_mean = np.load("sobel_mean_all.npy")
-sobel_var = np.load("sobel_var_all.npy")
-lbp_mean = np.load("lbp_mean_all.npy")
-entropy_mean = np.load("entropy_mean_all.npy")
-blue = np.load("mean_B.npy")
-green = np.load("mean_G.npy")
+gabor_mean = np.load("npy_files/gabor_mean_all.npy")
+sobel_edge = np.load("npy_files/sobel_edges0.4_all.npy")
+sobel_mean = np.load("npy_files/sobel_mean_all.npy")
+sobel_var = np.load("npy_files/sobel_var_all.npy")
+lbp_mean = np.load("npy_files/lbp_mean_all.npy")
+entropy_mean = np.load("npy_files/entropy_mean_all.npy")
+blue = np.load("npy_files/mean_B.npy")
+green = np.load("npy_files/mean_G.npy")
 
 features = ['gabor','sobel_edge','sobel_mean','sobel_var','lbp_mean', 'entropy_mean', 'blue', 'green']
 X = np.concatenate([gabor_mean, sobel_edge, sobel_mean, sobel_var, lbp_mean,  entropy_mean, blue , green], axis=1)
-Y = np.load("all_labels.npy")
+Y = np.load("../satellite-image-data/all_labels.npy")
 
 
 def stratified_CV(X, Y, model, n_split=5, metric=accuracy_score):
