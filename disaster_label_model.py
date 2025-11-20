@@ -23,7 +23,7 @@ green = np.load("npy_files/mean_G.npy")
 
 features = ['gabor','sobel_edge','sobel_mean','sobel_var','lbp_mean', 'entropy_mean', 'blue', 'green']
 X = np.concatenate([gabor_mean, sobel_edge, sobel_mean, sobel_var, lbp_mean,  entropy_mean, blue , green], axis=1)
-Y = np.load("../satellite-image-data/all_labels.npy")
+Y = np.load("npy_files/disaster_labels.npy")
 
 
 def stratified_CV(X, Y, model, n_split=5, metric=accuracy_score):
@@ -44,7 +44,7 @@ def stratified_CV(X, Y, model, n_split=5, metric=accuracy_score):
 
 def run_model(X, Y, n):
     
-    model = GradientBoostingClassifier( n_estimators=500, max_depth=4,min_samples_split=5, 
+    model = GradientBoostingClassifier(n_estimators=500, max_depth=3,min_samples_split=5, 
                                        min_samples_leaf=3, subsample=0.8, max_features='sqrt')
     mean_score, values, matrix = stratified_CV(X, Y, model, n_split= n, metric=f1_score)
     print(f"K1 Score = {mean_score}")
