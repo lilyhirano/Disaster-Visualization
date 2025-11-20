@@ -52,16 +52,16 @@ def run_model(X, Y, n):
 
     disp = ConfusionMatrixDisplay(confusion_matrix=matrix, display_labels=np.unique(Y))
     disp.plot(cmap=plt.cm.Blues)
-    plt.title("Normalized Confusion Matrix for Disaster Labels")
-    plt.savefig("dLabel_confusion_matrix.png", format="png")
+    plt.title("Disaster Labels: Normalized Confusion Matrix for Disaster Labels")
+    plt.savefig("images/dLabel_confusion_matrix.png", format="png")
     plt.close()
 
     plt.plot(np.arange(1, n+1), values, marker='o')
     plt.xlabel("Fold")
     plt.ylabel("Weighted F1 Score")
-    plt.title("Per-Fold F1 Scores")
+    plt.title("Disaster Labels: Per-Fold F1 Scores")
     plt.ylim(0,1)
-    plt.savefig("dLabel_KFold.png", format="png")
+    plt.savefig("images/dLabel_KFold.png", format="png")
     plt.close()
 
 
@@ -70,8 +70,8 @@ def run_model(X, Y, n):
     plt.bar(range(len(importances)), importances)
     plt.xticks(range(len(importances)), features)
     plt.ylabel("Feature Importance")
-    plt.title("Gradient Boosted Tree Feature Importances")
-    plt.savefig("dLabel_importances.png", format="png")
+    plt.title("Disaster Labels: Gradient Boosted Tree Feature Importances")
+    plt.savefig("images/dLabel_importances.png", format="png")
     plt.close()
     
 
