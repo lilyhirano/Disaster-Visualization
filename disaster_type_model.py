@@ -2,7 +2,6 @@ import numpy as np
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
 from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 from sklearn.metrics import ConfusionMatrixDisplay
 
@@ -11,7 +10,6 @@ lbp_mean = np.load("npy_files/lbp_mean_all.npy")
 entropy_mean = np.load("npy_files/entropy_mean_all.npy")
 blue = np.load("npy_files/mean_B.npy")
 green = np.load("npy_files/mean_G.npy")
-red = np.load("npy_files/mean_R.npy")
 
 features = ['lbp_mean', 'entropy_mean', 'blue', 'green']
 X = np.concatenate([ lbp_mean,  entropy_mean, blue, green], axis=1)
@@ -44,9 +42,15 @@ def run_model(X, Y, n):
     model = GradientBoostingClassifier(n_estimators=500, max_depth=3,min_samples_split=5, 
                                        min_samples_leaf=3, subsample=0.8, max_features='sqrt')
     mean_score, values, matrix = stratified_CV(X, Y, model, n_split= n, metric=f1_score)
-    print(f"K1 Score = {mean_score}")
-    print(f"Values = {values}")
 
+
+    print(f"\nK1 Score = {mean_score}")
+    print(f"K1 Values = {values}")
+
+
+    '''
+    Create Confusion Matrix
+    '''
     labels = [label_legend[y] for y in np.unique(Y)]
     disp = ConfusionMatrixDisplay(confusion_matrix=matrix, display_labels=labels)
     disp.plot(cmap="Oranges", values_format='d', xticks_rotation= 45)
@@ -55,7 +59,10 @@ def run_model(X, Y, n):
     plt.savefig("images/dType_confusion_matrix.png", format="png")
     plt.close()
 
-    plt.plot(np.arange(1, n+1), values, marker='o', color= 'orange')
+    '''
+    Create Per-Fold F1 Scores Figure
+    '''
+    plt.plot(np.arange(1, n+1), values, marker='o', color= 'darkorange')
     plt.xlabel("Fold")
     plt.ylabel("Weighted F1 Score")
     plt.title("Disaster Types: Per-Fold F1 Scores")
@@ -64,10 +71,12 @@ def run_model(X, Y, n):
     plt.savefig("images/dType_KFold.png", format="png")
     plt.close()
 
-
+    '''
+    Create Importances Figure
+    '''
     importances = model.feature_importances_
     plt.figure(figsize=(10,6))
-    plt.bar(range(len(importances)), importances, color="orange")
+    plt.bar(range(len(importances)), importances, color="darkorange")
     plt.xticks(range(len(importances)), features)
     plt.ylabel("Feature Importance")
     plt.ylabel("Feature Type")
