@@ -1,15 +1,9 @@
-#https://ds100.org/fa25/gradproject-cv/#milestone-4-project-report-first-draft-20---wednesday-november-19-2025
-
 import numpy as np
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
 from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 from sklearn.metrics import ConfusionMatrixDisplay
-from sklearn.preprocessing import label_binarize
-from sklearn.metrics import roc_curve, auc
-
 
 
 gabor_mean = np.load("npy_files/gabor_mean_all.npy")
@@ -47,16 +41,25 @@ def run_model(X, Y, n):
     model = GradientBoostingClassifier(n_estimators=500, max_depth=3,min_samples_split=5, 
                                        min_samples_leaf=3, subsample=0.8, max_features='sqrt')
     mean_score, values, matrix = stratified_CV(X, Y, model, n_split= n, metric=f1_score)
-    print(f"K1 Score = {mean_score}")
-    print(f"Values = {values}")
+
+
+    print(f"\nK1 Score = {mean_score}")
+    print(f"K1 Values = {values}")
 
     
+    '''
+    Create Confusion Matrix
+    '''
     disp = ConfusionMatrixDisplay(confusion_matrix=matrix, display_labels=np.unique(Y))
     disp.plot(cmap=plt.cm.Blues)
     plt.title("Disaster Labels: Confusion Matrix for the Final Fold")
     plt.savefig("images/dLabel_confusion_matrix.png", format="png")
     plt.close()
 
+
+    '''
+    Create Per-Fold F1 Scores Figure
+    '''
     plt.plot(np.arange(1, n+1), values, marker='o')
     plt.xlabel("Fold")
     plt.ylabel("Weighted F1 Score")
@@ -67,6 +70,9 @@ def run_model(X, Y, n):
     plt.close()
 
 
+    '''
+    Create Importances Figure
+    '''
     importances = model.feature_importances_
     plt.figure(figsize=(10,6))
     plt.bar(range(len(importances)), importances)
