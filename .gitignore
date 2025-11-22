@@ -8,3 +8,5 @@ npy_files/socal-fire_imgs.npy
 hurricane-matthew_imgs.npy
 midwest-flooding_imgs.npy
 socal-fire_imgs.npy
+
+__pycache__/

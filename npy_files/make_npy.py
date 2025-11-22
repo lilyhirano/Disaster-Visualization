@@ -2,7 +2,8 @@ from skimage import filters, color, feature
 import numpy as np
 from skimage.morphology import disk
 
-X = np.load("all_images.npy")
+X = np.load("npy_files/2_MERGED_imgs.npy")
+#X = np.load("npy_files/hurricane-matthew_imgs.npy")
 #Y = np.load("all_labels.npy")
 
 
@@ -15,7 +16,7 @@ X = np.load("all_images.npy")
 # final = np.array(features).reshape(-1, 1)
 
 
-# np.save("gabor_mean_all", final)
+# np.save("gabor_mean_2", final)
 
 
 
@@ -36,9 +37,9 @@ X = np.load("all_images.npy")
 # features3= np.array(features3).reshape(-1, 1)
 
 
-# np.save("sobel_mean_all.npy", features1)
-# np.save("sobel_var_all.npy", features2)
-# np.save("sobel_edges0.4_all.npy", features3)
+# np.save("sobel_mean_2.npy", features1)
+# np.save("sobel_var_2.npy", features2)
+# np.save("sobel_edges0.4_2.npy", features3)
 
 # features1 = []
 # features2 = []
@@ -51,8 +52,8 @@ X = np.load("all_images.npy")
 # features1 = np.array(features1).reshape(-1, 1)
 # features2 = np.array(features2).reshape(-1, 1)
 
-# np.save("lbp_median_all.npy", features1)
-# np.save("lbp_mean_all.npy", features2)
+# np.save("lbp_median_2.npy", features1)
+# np.save("lbp_mean_2.npy", features2)
 
 
 # features1 = []
@@ -67,8 +68,8 @@ X = np.load("all_images.npy")
 
 # features1 = np.array(features1).reshape(-1, 1)
 # features2 = np.array(features2).reshape(-1, 1)
-# np.save("entropy_median_all.npy", features1)
-# np.save("entropy_mean_all.npy", features2)
+# np.save("entropy_median_2.npy", features1)
+# np.save("entropy_mean_2.npy", features2)
 
 
 # features1 = []
@@ -88,9 +89,9 @@ X = np.load("all_images.npy")
 # features2 = np.array(features2).reshape(-1, 1)
 # features3= np.array(features3).reshape(-1, 1)
 
-# np.save("mean_R.npy", features1)
-# np.save("mean_G.npy", features2)
-# np.save("mean_B.npy", features3)
+# np.save("mean_R_2.npy", features1)
+# np.save("mean_G_2.npy", features2)
+# np.save("mean_B_2.npy", features3)
 
 # feature = []
 # for img in X:
@@ -98,4 +99,14 @@ X = np.load("all_images.npy")
 #     feature.append(np.mean(img_gray))
 
 # feature = np.array(feature).reshape(-1, 1)
-# np.save("mean_Grey.npy", feature)
+# np.save("mean_Grey_2.npy", feature)
+
+
+feature = []
+for img in X:
+    mean_color = np.mean(img)
+    feature.append(mean_color)
+
+feature = np.array(feature).reshape(-1, 1)
+np.save("mean_color_2.npy", feature)
+
