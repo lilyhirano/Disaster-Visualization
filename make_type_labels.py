@@ -3,7 +3,7 @@ import numpy as np
 
 from load import run
 
-disaster_list = ["hurricane-matthew", "midwest-flooding", "socal-fire"]
+disaster_list = ["midwest-flooding", "socal-fire"]
 data = run(disaster_list)
 
 
@@ -11,9 +11,8 @@ data = run(disaster_list)
 
 
 disaster_to_idx = {
-    "hurricane-matthew": 0,
-    "midwest-flooding": 1,
-    "socal-fire": 2
+    "midwest-flooding": 0,
+    "socal-fire": 1
 }
 
 Y = []
@@ -25,4 +24,4 @@ for d in disaster_list:
 
 Y = np.concatenate(Y)
 
-np.save("npy_images/disaster_types.npy", Y)
+np.save("npy_images/2_MERGED_labels.npy", Y)
