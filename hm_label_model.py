@@ -32,7 +32,7 @@ def stratified_CV(X, Y, model, n_split=5, metric=accuracy_score):
         model.fit(X_train, Y_train)
         Y_pred = model.predict(X_test)
         
-        values.append(metric(Y_test, Y_pred, average="weighted"))
+        values.append(metric(Y_test, Y_pred, average="macro"))
 
     return np.mean(values), values, confusion_matrix(Y_test, Y_pred)
 
